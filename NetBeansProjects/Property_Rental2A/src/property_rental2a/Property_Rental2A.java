@@ -77,27 +77,37 @@ public class Property_Rental2A {
     try (PreparedStatement stmt = conn.prepareStatement(query);
          ResultSet rs = stmt.executeQuery()) {
 
-        // Table header for Property Rental System
+       
         System.out.println("\nAvailable Properties:");
         System.out.println("+-----+----------------------+---------------+----------------------+----------+");
         System.out.printf("| %-3s | %-20s | %-13s | %-20s | %-8s |%n", 
                           "ID", "Property Name", "Type", "Location", "Rent ($)");
         System.out.println("+-----+----------------------+---------------+----------------------+----------+");
 
-        // Displaying available properties with actual data
+        
+        boolean hasResults = false;
         while (rs.next()) {
+            hasResults = true;
             System.out.printf("| %-3d | %-20s | %-13s | %-20s | %-8d |%n",
                     rs.getInt("id"),
                     rs.getString("name"),
-                    rs.getString("type"),    
+                    rs.getString("type"),
                     rs.getString("location"),
                     rs.getInt("rent"));
         }
 
-        // Table footer
+        
+        if (!hasResults) {
+            System.out.println("|                No available properties at the moment.                 |");
+        }
+
+       
         System.out.println("+-----+----------------------+---------------+----------------------+----------+");
+    } catch (SQLException e) {
+        System.out.println("Error fetching available properties: " + e.getMessage());
     }
 }
+
 
 
     private static void rentProperty(Connection conn) throws SQLException {
