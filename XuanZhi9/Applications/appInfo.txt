@@ -1,1 +1,0 @@
-[{"appName":"Call of Duty","appPackage":"com.garena.game.codm","appVersion":"1.6.48"}]
